@@ -1,7 +1,6 @@
 {
   "name": "edu",
   "version": "0.1.0",
-  "private": true,
   "dependencies": {
     "@rebass/grid": "^6.0.0",
     "@types/jest": "24.0.11",
@@ -9,9 +8,13 @@
     "@types/react": "16.8.13",
     "@types/react-dom": "16.8.4",
     "crypto-js": "^3.1.9-1",
+    "jsencrypt": "^3.0.0-rc.1",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
+    "react-dropzone": "^10.1.3",
     "react-scripts": "2.1.8",
+    "react-tabs": "^3.0.0",
+    "source-map-explorer": "^1.8.0",
     "styled-components": "^4.2.0",
     "typescript": "3.4.3"
   },
@@ -22,6 +25,7 @@
     "eject": "react-scripts eject",
     "storybook": "start-storybook -p 9009 -s public",
     "build-storybook": "build-storybook -s public",
+    "analyze": "source-map-explorer 'build/static/js/*.js'",
     "lint": "tslint -c tslint.json 'src/**/*.ts'"
   },
   "eslintConfig": {
@@ -41,6 +45,7 @@
     "@storybook/addons": "^5.0.9",
     "@storybook/react": "^5.0.9",
     "@types/crypto-js": "^3.1.43",
+    "@types/react-tabs": "^2.3.1",
     "@types/rebass__grid": "^6.0.4",
     "@types/storybook__addon-actions": "^3.4.2",
     "@types/storybook__addon-links": "^3.3.4",

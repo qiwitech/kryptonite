@@ -1,10 +1,6 @@
 import React from 'react';
-import { TextHash } from './../components/molecules';
+import { Main } from './../components/templates';
 
 export function App() {
-  return (
-    <div className="App">
-      <TextHash />
-    </div>
-  );
+  return (<Main />);
 }
