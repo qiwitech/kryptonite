@@ -1,23 +1,32 @@
 import { Flex } from '@rebass/grid';
 import React from 'react';
-import { useTextToHash } from './../../../hooks';
-import { Input, Textarea } from './../../atoms';
+import { HashMethod, useTextToHash } from './../../../hooks';
+import { extractValueFor } from './../../../utils';
+import { Select, Textarea } from './../../atoms';
 
 export function TextHash() {
-  const method = 'SHA256';
-  const [ hash, textToHash ] = useTextToHash(method);
+  const { method, text, hash, hashes, setText, setMethod } = useTextToHash();
 
-  function onChange(e: React.FormEvent<HTMLTextAreaElement>) {
-    textToHash(e.currentTarget.value);
+  const onChangeText = extractValueFor(setText);
+
+  function onChangeHashMethod(e: React.FormEvent<HTMLSelectElement>) {
+    const hashMethod: HashMethod = e.currentTarget.value as HashMethod;
+    if (!hashes.includes(hashMethod)) { return; }
+    setMethod(hashMethod);
   }
 
   return (
     <Flex flexDirection="column">
       <Flex flexDirection="column" p={20}>
-        <Textarea placeholder="Enter your text here"  onChange={onChange} />
+        <Select onChange={onChangeHashMethod}>
+          {hashes.map((hashMethod) => <option key={hashMethod}>{hashMethod}</option>)}
+        </Select>
       </Flex>
       <Flex flexDirection="column" px={20} pb={20}>
-        <Input placeholder={`${method} hash of your text`} value={hash} readOnly={true} />
+        <Textarea placeholder="Enter your text here" onChange={onChangeText} value={text} />
+      </Flex>
+      <Flex flexDirection="column" px={20} pb={20}>
+        <Textarea placeholder={`${method} hash of your text`}  value={hash} readOnly={true} />
       </Flex>
     </Flex>
   );

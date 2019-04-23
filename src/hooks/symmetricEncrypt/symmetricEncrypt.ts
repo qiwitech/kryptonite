@@ -2,25 +2,34 @@ import Crypto, { CipherHelper } from 'crypto-js';
 import { useState } from 'react';
 import { SubType } from './../../types';
 
+export type CipherAlgorithm = keyof SubType<Crypto.Hashes, CipherHelper>;
+
+const cryphers: CipherAlgorithm[] = [ 'AES', 'DES', 'TripleDES', 'RC4', 'RC4Drop', 'Rabbit', 'RabbitLegacy' ];
+
 export function useSymmetricEncrypt(
-  method: keyof SubType<Crypto.Hashes, CipherHelper> = 'AES',
+  initAlgorithmName: CipherAlgorithm = cryphers[0],
   initPassphrase: string = '',
 ): {
-  setPassphrase: React.Dispatch<React.SetStateAction<string>>,
+  cryphers: CipherAlgorithm[],
   decrypt: (encText: string) => string,
   encrypt: (text: string) => string,
+  setCrypherAlgorithm: React.Dispatch<React.SetStateAction<CipherAlgorithm>>,
+  setPassphrase: React.Dispatch<React.SetStateAction<string>>,
 } {
-  const [passphrase, setPassphrase] = useState(initPassphrase);
+  const [ algorithmName, setCrypherAlgorithm ] = useState(initAlgorithmName);
+  const [ passphrase, setPassphrase ] = useState(initPassphrase);
 
   function encrypt(text: string) {
-    return text ? (Crypto[method].encrypt(text, passphrase)).toString() : '';
+    return text ? (Crypto[algorithmName].encrypt(text, passphrase)).toString() : '';
   }
 
   function decrypt(encText: string) {
     try {
       if (!encText) { return ''; }
 
-      const decText = Crypto[method].decrypt(encText, passphrase).toString(Crypto.enc.Utf8);
+      const decText = Crypto[algorithmName]
+        .decrypt(encText, passphrase)
+        .toString(Crypto.enc.Utf8);
 
       if (!decText) { throw new Error('Passphrase is not valid'); }
 
@@ -31,8 +40,10 @@ export function useSymmetricEncrypt(
   }
 
   return {
+    cryphers,
     decrypt,
     encrypt,
+    setCrypherAlgorithm,
     setPassphrase,
   };
 }
