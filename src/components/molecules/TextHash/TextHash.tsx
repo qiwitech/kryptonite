@@ -2,7 +2,7 @@ import { Flex } from '@rebass/grid';
 import React from 'react';
 import { HashMethod, useTextToHash } from './../../../hooks';
 import { extractValueFor } from './../../../utils';
-import { Select, Textarea } from './../../atoms';
+import { Block, Select, Textarea } from './../../atoms';
 
 export function TextHash() {
   const { method, text, hash, hashes, setText, setMethod } = useTextToHash();
@@ -18,15 +18,19 @@ export function TextHash() {
   return (
     <Flex flexDirection="column">
       <Flex flexDirection="column" p={20}>
-        <Select onChange={onChangeHashMethod}>
-          {hashes.map((hashMethod) => <option key={hashMethod}>{hashMethod}</option>)}
-        </Select>
-      </Flex>
-      <Flex flexDirection="column" px={20} pb={20}>
-        <Textarea placeholder="Enter your text here" onChange={onChangeText} value={text} />
-      </Flex>
-      <Flex flexDirection="column" px={20} pb={20}>
-        <Textarea placeholder={`${method} hash of your text`}  value={hash} readOnly={true} />
+        <Block>
+          <Flex flexDirection="column" p={20}>
+            <Select onChange={onChangeHashMethod}>
+              {hashes.map((hashMethod) => <option key={hashMethod}>{hashMethod}</option>)}
+            </Select>
+          </Flex>
+          <Flex flexDirection="column" px={20} pb={20}>
+            <Textarea placeholder="Enter your text here" onChange={onChangeText} value={text} />
+          </Flex>
+          <Flex flexDirection="column" px={20} pb={20}>
+            <Textarea placeholder={`${method} hash of your text`}  value={hash} readOnly={true} />
+          </Flex>
+        </Block>
       </Flex>
     </Flex>
   );

@@ -6,6 +6,7 @@ export const Select = styled.select`
   border-radius: 10px;
   border: 1px solid #ccc;
   padding: 10px 20px;
+  appearance: none;
 
   &:focus{
     outline: none;

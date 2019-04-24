@@ -3,14 +3,16 @@ import React from 'react';
 import { Button, Textarea } from './../../atoms';
 
 interface IEncryptTextProps {
-  onChangeText: (event: React.ChangeEvent<HTMLTextAreaElement>) => void;
-  onChangeEncryptedText: (event: React.ChangeEvent<HTMLTextAreaElement>) => void;
   text: string;
   encryptedText: string;
+  title?: string;
+  onChangeText: (event: React.ChangeEvent<HTMLTextAreaElement>) => void;
+  onChangeEncryptedText: (event: React.ChangeEvent<HTMLTextAreaElement>) => void;
   toggle: () => void;
 }
 
 export function EncryptText({
+  title = 'Encrypt/Decrypt',
   onChangeText,
   onChangeEncryptedText,
   text, encryptedText,
@@ -26,7 +28,7 @@ export function EncryptText({
         />
       </Flex>
       <Flex flexDirection="column" p={20} pt={0}>
-        <Button onClick={toggle}>Encrypt/Decrypt</Button>
+        <Button onClick={toggle}>{title}</Button>
       </Flex>
       <Flex flexDirection="column" p={20} pt={0}>
         <Textarea

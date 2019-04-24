@@ -2,7 +2,7 @@ import { Flex } from '@rebass/grid';
 import React, { useMemo } from 'react';
 import { useDropzone } from 'react-dropzone';
 import { useFilesToChecksums } from './../../../hooks';
-import { Dropzone, Input } from './../../atoms';
+import { Block, Dropzone, Input } from './../../atoms';
 
 export function FileChecksum() {
   const [ checksums, onDrop ] = useFilesToChecksums();
@@ -12,9 +12,13 @@ export function FileChecksum() {
   return (
     <Flex flexDirection="column">
       <Flex flexDirection="column" p={20}>
-        <Dropzone {...dropzoneProps} />
+        <Block>
+          <Flex flexDirection="column" p={20}>
+            <Dropzone {...dropzoneProps} />
+          </Flex>
+          {inputs}
+        </Block>
       </Flex>
-      {inputs}
     </Flex>
   );
 }
